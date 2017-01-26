@@ -1,0 +1,44 @@
+    def map_enzyme_mass_to_reactions(self):
+        '''
+            How to distribute enzyme mass between reactions?
+            The relation between flux (v) and enzyme amount, or mass (E)
+            is not always straightforward as some reactions are catalyzed by
+            several enzymes and some enzymes catalyze more than a single reaction.
+            We handle this metabolic promescuity in the following manner:
+                
+            For enzyme i, there exist N reactions it can catalyze and k reactions 
+            carry flux (i.e., N>=k and v_j>0 for all j in {1,...,k}
+                                       v_l=0 for all l in {k+1,...,N}),
+            the enzyme mass associated with reaction j is E/k
+            the enzyme mass associated with reaction l is 0
+            
+            in case k=0 (the enzyme does not carry any reaction, i.e., it is idle):
+            the enzyme mass associated with reaction l equals E/N
+            
+        '''
+        if os.path.isfile("../data/reactions_2_mass.csv"):
+            return pd.DataFrame.from_csv("../data/reactions_2_mass.csv")
+            
+        mass = pd.DataFrame(index=self.rxns.keys(), columns=self.cs)
+        mass.replace(np.nan, 0, inplace=True)
+        for E in self.model.genes:
+            reactions = set(map(str, E.reactions))
+            for c in self.cs:
+                E_mass = self.mg_gCDW.loc[str(E), c]
+                inter = reactions.intersection(self.flux_carrying_rxns[c])
+                if inter:
+                    mass.loc[inter,c] += E_mass / len(inter)
+                else:
+                    mass.loc[reactions, c] += E_mass / len(reactions)        
+        mass.replace(np.nan, 0, inplace=True)
+        mass.to_csv("../data/reactions_2_mass.csv")
+        return mass
+        
+    def specific_activity(self):
+        out = self.umol_gCDW_min.div(self.E)
+        out.replace(np.inf, np.nan, inplace=True)
+        return out
+
+    def get_kmax(self):
+        return self.SA.max(axis=1)
+
