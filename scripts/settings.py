@@ -17,6 +17,8 @@ models = {'Escherichia coli': 'iJO1366',
 fluxes = {'Escherichia coli':'mmol_gCDW_h'}
 abundances = {'Escherichia coli':'g_gCDW'}
 
+genomes = {'Escherichia coli':'Escherichia coli_genome_info'}
+
 #%%
 def read_cache(fname):
     return pd.DataFrame.from_csv(os.path.join(CACHE_DIR, fname + '.csv'))

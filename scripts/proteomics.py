@@ -16,15 +16,18 @@ class BiGGProt():
         self.organism = organism        
         self.model = settings.get_model(organism)    
         self.flux = settings.read_data(settings.fluxes[self.organism])
-
+        self.gene_info = settings.read_data(settings.genomes[self.organism],
+                                            sep='\t')
+        self.gene_info.set_index('bigg_id', inplace=True)
+        self.reac2enzyme = self.reaction_to_isozymes()
 #        self.copies_gCDW = settings.read_proteomics(self.organism, 
 #                                            settings.abundances[self.organism])
 
 #        self.mg_gCDW = settings.read_proteomics(self.organism, 
 #                                    settings.abundances[self.organism])
 
-        self.conditions = self.flux.columns & self.abundance.columns
-        self.use_shared_conditions()
+#        self.conditions = self.flux.columns & self.abundance.columns
+#        self.use_shared_conditions()
 
     def use_shared_conditions(self):
         self.flux = self.flux[self.conditions]
@@ -54,7 +57,19 @@ class BiGGProt():
         
         df.columns = ['id', 'isozyme']
         df = settings.tidy_split(df, 'isozyme')
+        df.isozyme = df.isozyme.apply(lambda x: x.split("&"))
         df.index = range(len(df))
+        
+        # map isoenzyme to mass in daltons
+        isomass = []
+        for iso in df.isozyme:
+            try:
+                isomass.append(self.gene_info.loc[iso, 'mass_dalton'].sum())
+            except KeyError:
+                isomass.append(np.nan)
+                
+        df['mass_dalton'] = isomass
+        
         return df
 
     def map_isozyme_abundance(self):
@@ -85,4 +100,4 @@ class BiGGProt():
 if __name__ == '__main__':
     organism = 'Escherichia coli'    
     P = BiGGProt(organism)
-    settings.write_cache(P.reaction_to_enzyme_investemnt(), 'reaction2mass')
+#    settings.write_cache(P.reaction_to_enzyme_investemnt(), 'reaction2mass')

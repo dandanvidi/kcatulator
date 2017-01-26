@@ -1,0 +1,7 @@
+column,type
+id,string
+condition,string
+enzyme_amount,float
+flux,float
+kapp,float
+organism,string

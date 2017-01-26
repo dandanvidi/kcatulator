@@ -1,13 +1,11 @@
 import pandas as pd
 from cobra.core import Reaction as R
-
 from copy import deepcopy
 import csv
 import json
 import settings
 import numpy as np
 from proteomics import BiGGProt
-#import catalyic_rates
 
 class CACHE(BiGGProt):
     def __init__(self, organism):        
@@ -15,10 +13,10 @@ class CACHE(BiGGProt):
         self.organism = organism        
         self.model = settings.get_model(organism)    
 
-        self.flux = settings.read_data(settings.fluxes[self.organism])
+        self.flux = self.load_flux()
         self.flux = self.flux * 1e3 / 60. # umol/gCDW/min
         
-        self.abundance = settings.read_data(settings.abundances[self.organism])
+        self.abundance = self.load_abundance()
         self.abundance = self.abundance * 1e3 # mg/gCDW
         
         self.conditions = self.flux.columns & self.abundance.columns
@@ -32,7 +30,25 @@ class CACHE(BiGGProt):
 
         self.kcat = self.model_kcat_df()
         self.specific_activity = self.specific_activity()
+
+        self.data = self.condition_dependant()
         
+    def load_flux(self):
+        try:
+            return settings.read_data(settings.fluxes[self.organism])
+        except KeyError:
+            print "missing flux data - NaN assigned instead"
+            return pd.DataFrame(index=map(str,self.model.reactions),
+                                columns=['missing'])
+
+    def load_abundance(self):
+        try:
+            return settings.read_data(settings.abundances[self.organism])
+        except KeyError:
+            print "missing proteomics data - NaN assigned instead"
+            return pd.DataFrame(index=map(str,self.model.reactions),
+                                columns=['missing'])
+            
     @staticmethod
     def load_BRENDA_turnover_data():
         kcat = pd.DataFrame.from_csv(settings.DATA_DIR+"/turnover.csv")
@@ -137,7 +153,8 @@ class CACHE(BiGGProt):
         df = df.groupby(['id']).median()
         df.drop(['LigandID', 'stoich_coeff'], axis=1, inplace=True)
         df.dropna(inplace=True)
-        
+        self.searchin = self.searchin.merge(df, how='left', 
+                                            left_index=True, right_index=True)
         return df 
 
     def searchables(self):
@@ -148,8 +165,9 @@ class CACHE(BiGGProt):
 
 
     def specific_activity(self):
-        E = self.reaction_to_enzyme_investemnt()
-        out = self.flux.div(E)
+        self.E = self.reaction_to_enzyme_investemnt()
+        
+        out = self.flux.div(self.E)
         out.replace(np.inf, np.nan, inplace=True)
         return out
 
@@ -158,14 +176,42 @@ class CACHE(BiGGProt):
         
     def get_kmax(self):
         return self.kapp.max(axis=1)    
+       
+    def condition_dependant(self):
+        df_E = self.E.T.unstack().reset_index()
+        df_E.columns = ['id', 'condition', 'enzyme_amount']
+        
+        df_v = self.flux.T.unstack().reset_index()
+        df_v.columns = ['id', 'condition', 'flux']
+        
+        df_kapp = self.specific_activity.T.unstack().reset_index()
+        df_kapp.columns = ['id', 'condition', 'kapp']
 
+        df = df_E.merge(df_v)
+        df = df.merge(df_kapp)
+        
+        df['organism'] = self.organism
+        
+        df.set_index('id', inplace=True)
+        df.dropna(thresh=3, inplace=True)
+        
+        return df
         
 if __name__ == '__main__':
-#    organism = 'Saccharomyces cerevisiae'
-    organism = 'Escherichia coli'    
-    C = CACHE(organism)
     
-    df = C.searchin
+    organisms = ['Escherichia coli', 'Saccharomyces cerevisiae']    
+    s = []
+    d = []
+    for org in organisms:
+        C = CACHE(org) 
+        s.append(C.searchin)
+        d.append(C.data)
+    
+    s = pd.concat(s)
+    d = pd.concat(d)
+
+    settings.write_cache(s, 'search_df')
+    settings.write_cache(d, 'data_df')
     #cache dataframes
 #    settings.write_cache(B.kcat, organism+'_kcat')
 #    settings.write_cache(B.reactions, organism+'_reaction')

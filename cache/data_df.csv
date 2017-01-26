@@ -961,7 +961,7 @@ id,condition,enzyme_amount,flux,kapp,organism
 3PEPTabcpp,galactose,0.0364806105724,0.0,0.0,Escherichia coli
 3PEPTabcpp,acetate,0.0205829914371,0.0,0.0,Escherichia coli
 3PEPTabcpp,pyruvate,0.0363293843211,0.0,0.0,Escherichia coli
-3PEPTabcpp,glycerol,0.0318738943576,0.0,0.0,Escherichia coli
+3PEPTabcpp,glycerol,0.0318738943575,0.0,0.0,Escherichia coli
 3PEPTabcpp,fructose,0.0331704292901,0.0,0.0,Escherichia coli
 3PEPTabcpp,succinate,0.0417222746717,0.0,0.0,Escherichia coli
 3PEPTabcpp,glucose,0.028709833709,0.0,0.0,Escherichia coli
@@ -2833,7 +2833,7 @@ ALR2,pyruvate,0.066449897022,0.0,0.0,Escherichia coli
 ALR2,glycerol,0.061370580563,0.0,0.0,Escherichia coli
 ALR2,fructose,0.0427037108782,0.0,0.0,Escherichia coli
 ALR2,succinate,0.0621113268582,0.0,0.0,Escherichia coli
-ALR2,glucose,0.0359214563588,0.0,0.0,Escherichia coli
+ALR2,glucose,0.0359214563587,0.0,0.0,Escherichia coli
 ALR4x,galactose,0.00451829319358,0.0,0.0,Escherichia coli
 ALR4x,acetate,0.00477089651109,0.0,0.0,Escherichia coli
 ALR4x,pyruvate,0.00330691816254,0.0,0.0,Escherichia coli
@@ -4668,7 +4668,7 @@ CPGNexs,glycerol,,0.0,,Escherichia coli
 CPGNexs,fructose,,0.0,,Escherichia coli
 CPGNexs,succinate,,0.0,,Escherichia coli
 CPGNexs,glucose,,0.0,,Escherichia coli
-CPGNtonex,galactose,0.0337010247859,0.0,0.0,Escherichia coli
+CPGNtonex,galactose,0.033701024786,0.0,0.0,Escherichia coli
 CPGNtonex,acetate,0.0368824679368,0.0,0.0,Escherichia coli
 CPGNtonex,pyruvate,0.0534075189636,0.0,0.0,Escherichia coli
 CPGNtonex,glycerol,0.0493083878441,0.0,0.0,Escherichia coli
@@ -10335,7 +10335,7 @@ G3PD6,galactose,0.00387482926341,0.0,0.0,Escherichia coli
 G3PD6,acetate,0.00260200651518,0.0,0.0,Escherichia coli
 G3PD6,pyruvate,0.00249136453878,0.0,0.0,Escherichia coli
 G3PD6,glycerol,0.076099239344,3.49085966667,45.8724646496,Escherichia coli
-G3PD6,fructose,0.0019690658455,0.0,0.0,Escherichia coli
+G3PD6,fructose,0.00196906584549,0.0,0.0,Escherichia coli
 G3PD6,succinate,0.00322147450366,0.0,0.0,Escherichia coli
 G3PD6,glucose,0.00177661939502,0.0,0.0,Escherichia coli
 G3PD7,galactose,0.00387482926341,0.0,0.0,Escherichia coli
@@ -18084,14 +18084,14 @@ POR5,galactose,0.338839399229,0.32238,0.95142418719,Escherichia coli
 POR5,acetate,0.261552482728,0.5193915,1.98580221676,Escherichia coli
 POR5,pyruvate,0.296465342213,0.0,0.0,Escherichia coli
 POR5,glycerol,0.32559780818,0.0,0.0,Escherichia coli
-POR5,fructose,0.353098485084,0.0,0.0,Escherichia coli
+POR5,fructose,0.353098485085,0.0,0.0,Escherichia coli
 POR5,succinate,0.3293925456,0.0,0.0,Escherichia coli
 POR5,glucose,0.341563511275,0.0,0.0,Escherichia coli
 POR5_reverse,galactose,0.338839399229,0.0,0.0,Escherichia coli
 POR5_reverse,acetate,0.261552482728,0.0,0.0,Escherichia coli
 POR5_reverse,pyruvate,0.296465342213,193.402007085,652.35958322,Escherichia coli
 POR5_reverse,glycerol,0.32559780818,31.5902006667,97.0221539367,Escherichia coli
-POR5_reverse,fructose,0.353098485084,151.483910692,429.013199123,Escherichia coli
+POR5_reverse,fructose,0.353098485085,151.483910692,429.013199123,Escherichia coli
 POR5_reverse,succinate,0.3293925456,179.445727417,544.777742586,Escherichia coli
 POR5_reverse,glucose,0.341563511275,0.0,0.0,Escherichia coli
 POX,galactose,0.0721944722297,0.0,0.0,Escherichia coli

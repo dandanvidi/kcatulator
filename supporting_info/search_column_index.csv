@@ -1,0 +1,10 @@
+column,type,to_search
+id,string,1
+reaction,string,1
+reaction_name,string,1
+reaction_string,string,0
+ec_number,string,1
+gene_name,string,1
+gene_id,string,1
+organism,string,0
+kcat,float,0
