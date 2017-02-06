@@ -16,10 +16,11 @@ class BiGGProt():
         self.organism = organism        
         self.model = settings.get_model(organism)    
         self.flux = settings.read_data(settings.fluxes[self.organism])
-        self.gene_info = settings.read_data(settings.genomes[self.organism],
-                                            sep='\t')
+        self.gene_info = settings.read_data(settings.genomes[self.organism])
         self.gene_info.set_index('bigg_id', inplace=True)
         self.reac2enzyme = self.reaction_to_isozymes()
+        self.copies_fL = settings.read_data(settings.abundances[self.organism])
+        
 #        self.copies_gCDW = settings.read_proteomics(self.organism, 
 #                                            settings.abundances[self.organism])
 
@@ -29,6 +30,10 @@ class BiGGProt():
 #        self.conditions = self.flux.columns & self.abundance.columns
 #        self.use_shared_conditions()
 
+    def convert_copies_cell_2_copies_fL(self):
+                
+        
+        
     def use_shared_conditions(self):
         self.flux = self.flux[self.conditions]
         self.abundance = self.abundance[self.conditions]

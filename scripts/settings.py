@@ -1,7 +1,7 @@
 from cobra.io import load_json_model
 from cobra.manipulation.modify import convert_to_irreversible
 import pandas as pd
-import os, sys
+import os
 import inspect
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -14,11 +14,17 @@ PROTEOMICS_DIR = os.path.join(DATA_DIR, 'proteomics')
 #%%
 models = {'Escherichia coli': 'iJO1366',
           'Saccharomyces cerevisiae': 'iMM904'}
-fluxes = {'Escherichia coli':'mmol_gCDW_h'}
-abundances = {'Escherichia coli':'g_gCDW'}
 
-genomes = {'Escherichia coli':'Escherichia coli_genome_info'}
+mmol_gCDW_h = {'Escherichia coli':'eco_[mmol_gCDW_h]'}
 
+copies_fL = {'Escherichia coli':'eco_[copies_per_fL]_[schmidt_etal_2016]'}
+
+genomes = {'Escherichia coli':'eco_[genome_info]'}
+
+#%%
+
+protein_concentration = 180. #fg/uL - Booth I 1988
+dalton_2_fg = 1.6605402e-9
 #%%
 def read_cache(fname):
     return pd.DataFrame.from_csv(os.path.join(CACHE_DIR, fname + '.csv'))
@@ -42,7 +48,11 @@ def get_model(organism):
     m = load_json_model(fname)
     convert_to_irreversible(m)
     return m
-    
+
+@staticmethod
+def get_turnover():
+    return read_data('BrendaQuery2016_[turnover].csv')
+
 def tidy_split(df, column, sep='|', keep=False):
     """
     Split the values of a column and expand so the new DataFrame has one split

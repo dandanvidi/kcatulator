@@ -9,11 +9,15 @@ BASE_DIR = os.path.join(*os.path.split(SCRIPT_DIR)[0:-1])
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 CACHE_DIR = os.path.join(BASE_DIR, 'cache')
 RESULT_DIR = os.path.join(BASE_DIR, 'res')
+PROTEOMICS_DIR = os.path.join(DATA_DIR, 'proteomics')
 
 #%%
-models = {'Escherichia coli': 'iJO1366'}
+models = {'Escherichia coli': 'iJO1366',
+          'Saccharomyces cerevisiae': 'iMM904'}
 fluxes = {'Escherichia coli':'mmol_gCDW_h'}
 abundances = {'Escherichia coli':'g_gCDW'}
+
+genomes = {'Escherichia coli':'Escherichia coli_genome_info'}
 
 #%%
 def read_cache(fname):
@@ -22,8 +26,16 @@ def read_cache(fname):
 def write_cache(df, fname):
     df.to_csv(os.path.join(CACHE_DIR, fname + '.csv'), encoding='utf-8')
     
-def read_data(fname):
-    return pd.DataFrame.from_csv(os.path.join(DATA_DIR, fname + '.csv'))
+def read_data(fname, sep=',', encoding='utf-8'):
+    df = pd.DataFrame.from_csv(os.path.join(DATA_DIR, fname + '.csv'), 
+                               sep=sep, encoding=encoding)
+    return df
+
+def read_proteomics(organism, fname, sep=',', encoding='utf-8'):
+    ORG_DIR = os.path.join(PROTEOMICS_DIR,organism)
+    df = pd.DataFrame.from_csv(os.path.join(ORG_DIR, fname + '.csv'),
+                               sep=',', encoding='utf-8')
+    return df
     
 def get_model(organism):
     fname = os.path.join(DATA_DIR, models[organism] + '.json')

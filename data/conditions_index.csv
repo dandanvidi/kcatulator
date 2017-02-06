@@ -1,0 +1,28 @@
+condition,organism,strain,media,growth_mode,growth_rate_[1/h],single_cell_volume_[fL],gCDW,reference_[pmid],comments
+acetate,Escherichia coli,BW25113,M9+acetate,batch,0.3,2.3,,26641532,
+fructose,Escherichia coli,BW25113,M9+fructose,batch,0.65,2.96,,26641532,
+fumarate,Escherichia coli,BW25113,M9+fumarate,batch,0.42,2.54,,26641532,
+galactose ,Escherichia coli,BW25113,M9+galactose,batch,0.26,2.21,,26641532,
+glucosamine,Escherichia coli,BW25113,M9+glucosamine,batch,0.46,2.62,,26641532,
+chemostat µ=0.12,Escherichia coli,BW25113,M9+glucose,chemostat,0.12,1.9,,26641532,
+chemostat µ=0.20,Escherichia coli,BW25113,M9+glucose,chemostat,0.2,2.08,,26641532,
+chemostat µ=0.35,Escherichia coli,BW25113,M9+glucose,chemostat,0.35,2.4,,26641532,
+chemostat µ=0.5,Escherichia coli,BW25113,M9+glucose,chemostat,0.5,2.69,,26641532,
+osmotic-stress glucose,Escherichia coli,BW25113,M9+glucose,batch,0.55,2.79,,26641532,50 mM NaCl
+glucose,Escherichia coli,BW25113,M9+glucose,batch,0.58,2.84,,26641532,
+ph6 glucose,Escherichia coli,BW25113,M9+glucose,batch,0.63,2.93,,26641532,pH6
+42°c glucose,Escherichia coli,BW25113,M9+glucose,batch,0.66,2.98,,26641532,42oC
+glycerol,Escherichia coli,BW25113,M9+glycerol,batch,0.47,2.64,,26641532,
+glycerol + amino acids,Escherichia coli,BW25113,M9+glycerol+amino acids,batch,1.27,3.83,,26641532,
+lb,Escherichia coli,BW25113,lb,batch,1.9,4.29,,26641532,
+mannose,Escherichia coli,BW25113,M9+mannose,batch,0.47,2.64,,26641532,
+pyruvate,Escherichia coli,BW25113,M9+pyruvate,batch,0.4,2.5,,26641532,
+succinate,Escherichia coli,BW25113,M9+succinate,batch,0.44,2.58,,26641532,
+xylose,Escherichia coli,BW25113,M9+xylose,batch,0.55,2.79,,26641532,
+stationary phase 1 day,Escherichia coli,BW25113,M9+glucose,batch,-0.01,1.6,,26641532,stationary 1 day
+stationary phase 3 days,Escherichia coli,BW25113,M9+glucose,batch,-0.01,1.6,,26641532,stationary 3 day
+glucose,Bacillus subtilis,BSB1,M9+glucose,batch,0.61,,0.48,26498510,
+glucose + glutamate,Bacillus subtilis,BSB1,M9+glucose+glutamate,batch,0.94,,0.44,26498510,
+amino acids,Bacillus subtilis,BSB1,M9+amino acids,batch,1.08,,0.47,26498510,
+glucose + amino acids,Bacillus subtilis,BSB1,M9+glucose+amino acids,batch,1.35,,0.55,26498510,
+pyruvate,Bacillus subtilis,BSB1,M9+pyruvate,batch,0.28,,0.43,26498510,
